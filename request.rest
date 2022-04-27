@@ -1,0 +1,28 @@
+GET http://localhost:8000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOjEsIm5hbWUiOiJBbGZhUml6YSIsImVtYWlsIjoibWFsZmFyaXphNDVAZ21haWwuY29tIiwiaWF0IjoxNjUwOTkwMTAyLCJleHAiOjE2NTA5OTAxMjJ9.ROaLtN2A5DeUwhzZ7fJh0WrAx_5SbihuEtFRMctU9ZQ
+###
+POST http://localhost:8000/register
+Content-Type: application/json
+
+{
+    "name": "AlfaRiza",
+    "email": "malfariza45@gmail.com",
+    "password": "12345678",
+    "confirm_password": "12345678"
+}
+
+###
+POST http://localhost:8000/login
+Content-Type: application/json
+
+{
+    "email": "malfariza45@gmail.com",
+    "password": "12345678"
+}
+
+###
+GET http://localhost:8000/token
+
+
+# ###
+DELETE  http://localhost:8000/logout
