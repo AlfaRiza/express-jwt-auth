@@ -68,13 +68,16 @@ export const Login = async (req, res) => {
             }
         });
 
-        res.cookie('refresh_token', refresh_token, {
-            httpOnly: true,
-            maxAge: 24 * 60 * 60 * 1000,
-            // secure: true
-        });
+        // res.cookie('refresh_token', refresh_token, {
+        //     httpOnly: true,
+        //     maxAge: 24 * 60 * 60 * 1000,
+        //     // secure: true
+        // });
 
-        res.json({ access_token })
+        let exp =  new Date('1d').getTime() / 1000;  
+            // return dt / 1000;  
+
+        res.json({ access_token, refresh_token, name, email});
     } catch (error) {
         res.status(422).json({ msg: "Email tidak ditemukan" });
     }
@@ -82,7 +85,10 @@ export const Login = async (req, res) => {
 
 export const Logout = async (req, res) => {
     try {
-        const refresh_token = req.cookies.refresh_token;
+        // const refresh_token = req.cookies.refresh_token;
+        const AuthHeader = req.headers['authorization'];
+        const refresh_token = AuthHeader && AuthHeader.split(' ')[1];
+        
         if (!refresh_token) return res.sendStatus(204);
         const user = await Users.findAll({
             where: {
@@ -101,7 +107,7 @@ export const Logout = async (req, res) => {
             }
         });
 
-        res.clearCookie('refresh_token');
+        // res.clearCookie('refresh_token');
         return res.sendStatus(200);
 
     } catch (error) {
